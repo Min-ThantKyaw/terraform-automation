@@ -1,0 +1,52 @@
+name: 'Terraform DEV CI/CD'
+
+on:
+  push:
+    branches: [ develop ]
+    paths:
+      - 'program/ecs-buleprint/**'
+    pull_request:
+      branches:
+        - 'develop'
+      paths:
+      - 'program/ecs-buleprint/**'
+
+permissions:
+  contents: read
+
+jobs:
+  terraform-dev:
+    name: 'Terraform Dev'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./program/ecs-buleprint/environments/dev
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws-region: us-east-1
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.5.0
+      
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Teffaform Plan
+      if: github.event_name == 'pull_request'
+      run: terraform plan -no-color -input=false
+
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+      run: terraform apply -auto-approve -input=false
+    

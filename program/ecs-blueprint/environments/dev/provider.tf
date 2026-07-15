@@ -7,6 +7,15 @@ terraform {
     }
 }
 
+terraform {
+    backend "s3" {
+        bucket = "mtk-terraform-state-bucket"
+        key    = "dev/terraform.tfstate"
+        region = "us-east-1"
+        encrypt = true
+    }
+}
+
 provider "aws" {
     region = "ap-southeast-1"
 
