@@ -5,12 +5,12 @@ on:
     branches: 
       - 'develop'
     paths:
-      - 'program/ecs-buleprint/**'
+      - 'program/ecs-blueprint/**'
   pull_request:
     branches:
       - 'develop'
     paths:
-      - 'program/ecs-buleprint/**'
+      - 'program/ecs-blueprint/**'
 
 permissions:
   contents: read
@@ -22,7 +22,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./program/ecs-buleprint/environments/dev
+        working-directory: ./program/ecs-blueprint/environments/dev
 
     steps:
     - name: Checkout Code
