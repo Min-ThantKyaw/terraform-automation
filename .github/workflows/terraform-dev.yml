@@ -2,7 +2,8 @@ name: 'Terraform DEV CI/CD'
 
 on:
   push:
-    branches: [ develop ]
+    branches: 
+      - 'develop'
     paths:
       - 'program/ecs-buleprint/**'
     pull_request:
