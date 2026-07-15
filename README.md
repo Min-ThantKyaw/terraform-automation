@@ -25,7 +25,7 @@ Provisions an Amazon Linux 2 EC2 instance with Apache web server using Terraform
 - Apache httpd web server
 
 **Prerequisites:**
-- AWS CLI configured with profile `maungtharkyaw`
+- AWS CLI configure
 - Terraform installed
 
 **Quick Start:**
